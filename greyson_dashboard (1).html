@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Greyson Data Insights</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Helvetica Neue', sans-serif;
+      background-color: #f8f8f8;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #111;
+      color: #fff;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    .chart-section {
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #111;
+      color: #fff;
+    }
+
+    .brand-selector {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Greyson Clothiers: Data Insights Dashboard</h1>
+  </header>
+
+  <div class="brand-selector">
+    <label for="brand1">Compare:</label>
+    <select id="brand1">
+      <option>Greyson</option>
+      <option>Lululemon</option>
+      <option>Rhone</option>
+      <option>TravisMathew</option>
+    </select>
+    <label for="brand2">vs</label>
+    <select id="brand2">
+      <option>Lululemon</option>
+      <option>Greyson</option>
+      <option>Rhone</option>
+      <option>TravisMathew</option>
+    </select>
+  </div>
+
+  <section class="chart-section">
+    <h2>Retail Locations by Region</h2>
+    <canvas id="locationChart"></canvas>
+  </section>
+
+  <section class="chart-section">
+    <h2>Ambassador Social Reach</h2>
+    <canvas id="ambassadorChart"></canvas>
+  </section>
+
+  <section class="chart-section">
+    <h2>Estimated Revenue Growth (2015–2025)</h2>
+    <canvas id="revenueChart"></canvas>
+  </section>
+
+  <section class="chart-section">
+    <h2>Product Line Focus</h2>
+    <canvas id="productChart"></canvas>
+  </section>
+
+  <footer>
+    <p>Created by a Hope College Student | Internship Prospect | 2025</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
