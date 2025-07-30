@@ -1,93 +1,108 @@
+// Sample brand data
 const brandData = {
     Greyson: {
-      locations: [10, 20, 15],
-      socialReach: [400, 300, 150],
-      revenue: [5, 10, 15, 20, 25, 30],
-      productFocus: [30, 50, 20]
+      locations: [30, 25, 15, 10],
+      ambassadorReach: [80, 60, 45, 20],
+      revenue: [10, 20, 35, 50, 65, 75],
+      products: [70, 60, 55, 40, 30],
     },
     Lululemon: {
-      locations: [60, 90, 80],
-      socialReach: [800, 600, 500],
-      revenue: [15, 20, 30, 45, 55, 70],
-      productFocus: [20, 70, 10]
+      locations: [120, 100, 80, 60],
+      ambassadorReach: [150, 140, 110, 90],
+      revenue: [50, 65, 85, 110, 130, 150],
+      products: [80, 85, 75, 50, 35],
     },
     Rhone: {
-      locations: [5, 10, 12],
-      socialReach: [200, 100, 80],
-      revenue: [2, 5, 8, 12, 16, 22],
-      productFocus: [40, 40, 20]
+      locations: [15, 10, 5, 2],
+      ambassadorReach: [40, 35, 25, 10],
+      revenue: [5, 10, 20, 30, 45, 55],
+      products: [60, 50, 40, 30, 20],
     },
     TravisMathew: {
-      locations: [20, 30, 25],
-      socialReach: [300, 250, 200],
-      revenue: [10, 12, 20, 28, 35, 42],
-      productFocus: [25, 60, 15]
+      locations: [40, 35, 25, 15],
+      ambassadorReach: [70, 65, 50, 30],
+      revenue: [20, 30, 45, 60, 75, 90],
+      products: [65, 55, 50, 45, 25],
     }
   };
   
-  const labels = {
-    locations: ['West', 'East', 'South'],
-    socialReach: ['Instagram', 'TikTok', 'Twitter'],
-    revenue: ['2015', '2017', '2019', '2021', '2023', '2025'],
-    productFocus: ['Golf', 'Lifestyle', 'Accessories']
-  };
-  
-  function createChart(id, type, label, data1, data2, brand1, brand2) {
-    return new Chart(document.getElementById(id), {
-      type,
-      data: {
-        labels: label,
-        datasets: [
-          {
-            label: brand1,
-            data: data1,
-            backgroundColor: 'rgba(54, 162, 235, 0.6)'
-          },
-          {
-            label: brand2,
-            data: data2,
-            backgroundColor: 'rgba(255, 99, 132, 0.6)'
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: 'bottom'
-          }
-        }
-      }
-    });
-  }
+  const years = [2015, 2017, 2019, 2021, 2023, 2025];
+  const productLabels = ['Polos', 'Outerwear', 'Pants', 'Hats', 'Accessories'];
+  const regionLabels = ['North America', 'Europe', 'Asia', 'Other'];
+  const ambassadorLabels = ['Instagram', 'YouTube', 'TikTok', 'LinkedIn'];
   
   // Chart instances
   let locationChart, ambassadorChart, revenueChart, productChart;
   
-  function updateCharts() {
-    const brand1 = document.getElementById('brand1').value;
-    const brand2 = document.getElementById('brand2').value;
-  
+  function createCharts(data1, data2) {
+    // Destroy old charts
     if (locationChart) locationChart.destroy();
     if (ambassadorChart) ambassadorChart.destroy();
     if (revenueChart) revenueChart.destroy();
     if (productChart) productChart.destroy();
   
-    locationChart = createChart('locationChart', 'bar', labels.locations,
-      brandData[brand1].locations, brandData[brand2].locations, brand1, brand2);
+    // Location chart
+    locationChart = new Chart(document.getElementById('locationChart'), {
+      type: 'bar',
+      data: {
+        labels: regionLabels,
+        datasets: [
+          { label: brand1.value, data: data1.locations, backgroundColor: '#4B9CD3' },
+          { label: brand2.value, data: data2.locations, backgroundColor: '#FFB347' }
+        ]
+      }
+    });
   
-    ambassadorChart = createChart('ambassadorChart', 'bar', labels.socialReach,
-      brandData[brand1].socialReach, brandData[brand2].socialReach, brand1, brand2);
+    // Ambassador chart
+    ambassadorChart = new Chart(document.getElementById('ambassadorChart'), {
+      type: 'bar',
+      data: {
+        labels: ambassadorLabels,
+        datasets: [
+          { label: brand1.value, data: data1.ambassadorReach, backgroundColor: '#4B9CD3' },
+          { label: brand2.value, data: data2.ambassadorReach, backgroundColor: '#FFB347' }
+        ]
+      }
+    });
   
-    revenueChart = createChart('revenueChart', 'line', labels.revenue,
-      brandData[brand1].revenue, brandData[brand2].revenue, brand1, brand2);
+    // Revenue chart
+    revenueChart = new Chart(document.getElementById('revenueChart'), {
+      type: 'line',
+      data: {
+        labels: years,
+        datasets: [
+          { label: brand1.value, data: data1.revenue, borderColor: '#4B9CD3', fill: false },
+          { label: brand2.value, data: data2.revenue, borderColor: '#FFB347', fill: false }
+        ]
+      }
+    });
   
-    productChart = createChart('productChart', 'doughnut', labels.productFocus,
-      brandData[brand1].productFocus, brandData[brand2].productFocus, brand1, brand2);
+    // Product chart
+    productChart = new Chart(document.getElementById('productChart'), {
+      type: 'radar',
+      data: {
+        labels: productLabels,
+        datasets: [
+          { label: brand1.value, data: data1.products, backgroundColor: 'rgba(75, 156, 211, 0.3)', borderColor: '#4B9CD3' },
+          { label: brand2.value, data: data2.products, backgroundColor: 'rgba(255, 179, 71, 0.3)', borderColor: '#FFB347' }
+        ]
+      }
+    });
   }
   
-  document.getElementById('brand1').addEventListener('change', updateCharts);
-  document.getElementById('brand2').addEventListener('change', updateCharts);
+  function updateCharts() {
+    const brandA = brand1.value;
+    const brandB = brand2.value;
+    createCharts(brandData[brandA], brandData[brandB]);
+  }
   
-  window.onload = updateCharts;
+  const brand1 = document.getElementById('brand1');
+  const brand2 = document.getElementById('brand2');
+  
+  // Load initial
+  updateCharts();
+  
+  // Add event listeners
+  brand1.addEventListener('change', updateCharts);
+  brand2.addEventListener('change', updateCharts);
   
